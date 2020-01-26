@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "592578334544",
+    "firebase_url": "https://myjournaling-5e976.firebaseio.com",
+    "project_id": "myjournaling-5e976",
+    "storage_bucket": "myjournaling-5e976.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592578334544:android:38240e4c8ca38889ff6655",
+        "android_client_info": {
+          "package_name": "com.example.my_journaling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592578334544-c1g96nsk7e7453o3v9kjh98bgs3n04rr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChz3SXkJAesETxJPRFvhDf7G8HdFhpTwc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592578334544-c1g96nsk7e7453o3v9kjh98bgs3n04rr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
