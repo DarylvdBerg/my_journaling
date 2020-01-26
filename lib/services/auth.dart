@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_journaling/models/user.dart';
 
@@ -13,6 +14,7 @@ class AuthService {
 
       // Change display name of user
       _setDisplayName(user, name);
+      _createUserDocument(user.uid);
 
       return _createUserFromFirebaseUser(user);
     } catch(e) {
@@ -52,6 +54,10 @@ class AuthService {
     updateInfo.displayName = name;
 
     user.updateProfile(updateInfo);
+  }
+
+  void _createUserDocument(String uid) {
+    Firestore.instance.collection('users').document(uid).setData({});
   }
 
 

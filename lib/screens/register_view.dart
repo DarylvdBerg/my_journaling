@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:my_journaling/screens/home_view.dart';
 import 'package:my_journaling/services/auth.dart';
 import 'package:my_journaling/widgets/app_name.dart';
 
@@ -84,6 +85,10 @@ class _RegisterViewState extends State<RegisterView> {
                       if (input.isEmpty) {
                         return 'Please repeat your password';
                       }
+
+                      if(input != _password) {
+                        return 'Confirmation password does not match password';
+                      }
                       return null;
                     },
                     onChanged: (input) {
@@ -108,15 +113,8 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  void _register() async {
+  Future _register() async {
     final formState = _formKey.currentState;
-
-    if (_password != _repeatPassword) {
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text('Passwords dont match!'),
-      ));
-    }
-
     if (formState.validate()) {
       dynamic result = await _auth.register(_name, _email, _password);
 
@@ -125,7 +123,7 @@ class _RegisterViewState extends State<RegisterView> {
           content: Text('Please enter valid information!'),
         ));
       } else {
-        Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeView()));
       }
     }
   }

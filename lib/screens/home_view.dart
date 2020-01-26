@@ -22,6 +22,7 @@ class _HomeViewState extends State<HomeView> {
             label: Text('Logout'),
             onPressed: () async {
               await _auth.signOut();
+              Navigator.pop(context);
             },
           )
         ],

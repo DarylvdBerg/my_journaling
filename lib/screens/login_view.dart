@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:my_journaling/screens/register_view.dart';
 import 'package:my_journaling/services/auth.dart';
-import 'package:my_journaling/util/routing_names.dart';
 import 'package:my_journaling/widgets/app_name.dart';
 
 class LoginView extends StatefulWidget {
@@ -70,7 +70,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   FlatButton(
                     onPressed: () =>
-                        Navigator.pushNamed(context, RegisterViewRoute),
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterView())),
                     child: Text('Sign up'),
                     padding: EdgeInsets.only(top: 15),
                   ),
