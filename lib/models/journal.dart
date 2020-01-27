@@ -7,4 +7,14 @@ class Journal {
   DateTime date;
 
   Journal(this.journal, this.questions, this.date, [this.uid]);
+
+
+  factory Journal.fromJSON(Map<dynamic, dynamic> json) {
+    return Journal(
+      json['journal'],
+      json['questions'],
+      json['date'],
+      json['uid']
+    );
+  }
 }
