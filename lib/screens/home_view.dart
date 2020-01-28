@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_journaling/services/auth.dart';
-import 'package:my_journaling/services/journal.dart';
-import 'package:my_journaling/widgets/journal_list.dart';
+import 'package:my_journaling/widgets/journal_future_builder.dart';
+
+import 'journal_view.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -11,7 +12,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
 
   final AuthService _auth = AuthService();
-  final JournalService _journalService = new JournalService();
 
   @override
   Widget build(BuildContext context) {
@@ -33,31 +33,14 @@ class _HomeViewState extends State<HomeView> {
       body: Center(
         child: Column(
           children: <Widget>[
-            FutureBuilder(
-              future: _journalService.getJournals(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                switch(snapshot.connectionState) {
-                  case ConnectionState.none:
-                  case ConnectionState.waiting:
-                    return Text('loading...');
-                  default:
-                    if(snapshot.data == null)
-                      return Text(
-                          'No Journals found!',
-                          style: TextStyle(
-                            fontSize: 25,
-                          ),
-                      );
-                    else
-                      return JournalList(snapshot: snapshot);
-                }
-              }
-            ),
+            JournalFutureBuilder()
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => JournalView()));
+        },
         child: Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

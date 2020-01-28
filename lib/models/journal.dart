@@ -6,6 +6,8 @@ class Journal {
   List<Question> questions;
   DateTime date;
 
+  Journal.empty();
+
   Journal(this.journal, this.questions, this.date, [this.uid]);
 
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_journaling/models/journal.dart';
 
 class JournalList extends StatelessWidget {
-  AsyncSnapshot snapshot;
+  final AsyncSnapshot snapshot;
 
   JournalList({this.snapshot});
 
