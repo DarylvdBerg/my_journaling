@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_journaling/models/journal.dart';
 import 'package:my_journaling/services/journal.dart';
 import 'package:my_journaling/widgets/journal_list.dart';
 
@@ -11,6 +12,7 @@ class JournalFutureBuilder extends StatelessWidget {
     return FutureBuilder(
         future: _journalService.getJournals(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+          List<Journal> journals = snapshot.data;
           switch(snapshot.connectionState) {
             case ConnectionState.none:
             case ConnectionState.waiting:
@@ -24,7 +26,7 @@ class JournalFutureBuilder extends StatelessWidget {
                   ),
                 );
               else
-                return JournalList(snapshot: snapshot);
+                return JournalList(journals: journals);
           }
         }
     );

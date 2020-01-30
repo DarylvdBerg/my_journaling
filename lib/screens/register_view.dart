@@ -123,7 +123,9 @@ class _RegisterViewState extends State<RegisterView> {
           content: Text('Please enter valid information!'),
         ));
       } else {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeView()));
+        Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context) => HomeView())
+        );
       }
     }
   }

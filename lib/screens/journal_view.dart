@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journaling/models/journal.dart';
 import 'package:my_journaling/models/question.dart';
@@ -17,24 +18,17 @@ class _JournalViewState extends State<JournalView> {
 
   List<Question> questions = new List<Question>();
 
-  List<String> questionStrings = Strings.questions;
+  List<String> questionStrings = Strings.QUESTIONLIST;
   var _index = 0;
-  var _finalQuestion = false;
 
   void _trackQuestions(List<String> answers) {
     questions.add(new Question(questionStrings[_index]));
     questions[_index].answers = answers;
 
-    if(_index == questionStrings.length) {
-      _finalQuestion = true;
-    }
-
-    print(questions[_index].question);
-    print(questions[_index].answers);
-
     setState(() {
       _index = _index + 1;
     });
+
   }
 
   void _questionAnswered(String answer1, String answer2, String answer3) {
@@ -48,17 +42,19 @@ class _JournalViewState extends State<JournalView> {
 
   void _createJournalItem(String journalContent) {
     _journalService.createNewJournalItem(
-        new Journal(journalContent, questions,DateTime.now())
+        new Journal(journalContent, questions, Timestamp.now())
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(Strings.APPNAME),
+      ),
         body: _index < questionStrings.length ?
-          JournalQuestions(question: questionStrings[_index], nextQuestion: _questionAnswered, finalQuestion: _finalQuestion) :
-          JournalContent(),
-
+          JournalQuestions(question: questionStrings[_index], nextQuestion: _questionAnswered) :
+          JournalContent(saveJournal: _createJournalItem),
     );
   }
 }

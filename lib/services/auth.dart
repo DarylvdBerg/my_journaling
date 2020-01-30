@@ -4,8 +4,7 @@ import 'package:my_journaling/models/user.dart';
 
 class AuthService {
   FirebaseAuth _auth = FirebaseAuth.instance;
-  var currentUser;
-
+  static User currentUser;
 
   /// Register a new user with email and password
   Future register(String name, String email, String password) async {
@@ -61,20 +60,11 @@ class AuthService {
     Firestore.instance.collection('users').document(uid).setData({});
   }
 
-  User getCurrentUser() {
-    return this.currentUser;
-  }
-
-  void setCurrentUser(User user) {
-    currentUser = user;
-  }
-
-
   /// Create user from firebase
   User _createUserFromFirebaseUser(FirebaseUser user) {
     if(user != null) {
       var currentUser = User(uid: user.uid, name: user.displayName, email: user.email);
-      setCurrentUser(currentUser);
+      AuthService.currentUser = currentUser;
       return currentUser;
     }
     return null;

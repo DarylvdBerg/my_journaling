@@ -4,7 +4,12 @@ class Question {
 
   Question(String question) {
     this.question = question;
-    this.answers = new List(3);
+    this.answers = new List();
   }
+
+  Map<String, dynamic> toJson() => {
+    'question': question,
+    'answers': answers,
+  };
 
 }

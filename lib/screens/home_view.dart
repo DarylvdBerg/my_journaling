@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_journaling/services/auth.dart';
+import 'package:my_journaling/util/strings.dart';
 import 'package:my_journaling/widgets/journal_future_builder.dart';
 
+import '../wrapper.dart';
 import 'journal_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -17,7 +19,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MyJournaling'),
+        title: Text(Strings.APPNAME),
         elevation: 0.0,
         actions: <Widget>[
           FlatButton.icon(
@@ -25,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
             label: Text('Logout'),
             onPressed: () async {
               await _auth.signOut();
-              Navigator.pop(context);
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Wrapper()));
             },
           )
         ],
@@ -39,7 +41,9 @@ class _HomeViewState extends State<HomeView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => JournalView()));
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) => JournalView()),
+          );
         },
         child: Icon(Icons.add),
       ),

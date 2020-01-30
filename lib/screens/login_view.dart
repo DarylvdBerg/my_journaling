@@ -70,7 +70,9 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   FlatButton(
                     onPressed: () =>
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterView())),
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => RegisterView()),
+                        ),
                     child: Text('Sign up'),
                     padding: EdgeInsets.only(top: 15),
                   ),

@@ -5,13 +5,12 @@ class JournalQuestions extends StatelessWidget {
 
   final String question;
   final Function nextQuestion;
-  final bool finalQuestion;
 
-  TextEditingController anwser1 = TextEditingController();
-  TextEditingController anwser2 = TextEditingController();
-  TextEditingController anwser3 = TextEditingController();
+  final TextEditingController anwser1 = TextEditingController();
+  final TextEditingController anwser2 = TextEditingController();
+  final TextEditingController anwser3 = TextEditingController();
 
-  JournalQuestions({this.question, this.nextQuestion, this.finalQuestion});
+  JournalQuestions({this.question, this.nextQuestion});
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +43,8 @@ class JournalQuestions extends StatelessWidget {
           ),
           SizedBox(height: 20,),
           FlatButton(
-            onPressed: () => (!finalQuestion) ? nextQuestion(anwser1.text, anwser2.text, anwser3.text)
-            : () => {},
-            child: (!finalQuestion) ? Text("Next") : Text("Journaling"),
+            onPressed: () => nextQuestion(anwser1.text, anwser2.text, anwser3.text),
+            child: Text("Next"),
           ),
         ],
       ),
