@@ -37,6 +37,13 @@ class JournalService {
     return null;
   }
 
+  Future<int> getUserTotalJournals() async{
+    QuerySnapshot snapshot = await _getUserPath().collection(Strings.JOURNALS).getDocuments();
+    List<DocumentSnapshot> docs = snapshot.documents;
+
+    return docs.length;
+  }
+
   /// get a instance of the current user document to not have to repeat it all the time.
   DocumentReference _getUserPath() {
     return _service.collection(Strings.USERS).document(AuthService.currentUser.uid);

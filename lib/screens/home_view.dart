@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_journaling/services/auth.dart';
 import 'package:my_journaling/util/strings.dart';
+import 'package:my_journaling/widgets/journalCounter.dart';
 import 'package:my_journaling/widgets/journal_future_builder.dart';
 
 import '../wrapper.dart';
@@ -12,7 +13,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
   final AuthService _auth = AuthService();
 
   @override
@@ -27,22 +27,25 @@ class _HomeViewState extends State<HomeView> {
             label: Text('Logout'),
             onPressed: () async {
               await _auth.signOut();
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Wrapper()));
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Wrapper()));
             },
           )
         ],
       ),
-      body: Center(
+      body: Container(
         child: Column(
           children: <Widget>[
+            JournalCounter(),
             JournalFutureBuilder()
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(
-            builder: (context) => JournalView()),
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => JournalView()),
           );
         },
         child: Icon(Icons.add),
