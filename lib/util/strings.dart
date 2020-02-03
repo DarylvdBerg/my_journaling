@@ -13,4 +13,12 @@ class Strings {
     "What am I excited about for today?",
     "What am I grateful for?",
   ];
+
+  // Notifications
+  static const String NOTIFICATION_TITLE = "Journal time!";
+  static const String NOTIFICATION_BODY = "It's time to start journaling! What did you do today?";
+
+  // Menu
+  static const String LOGOUT = "Logout";
+  static const String NOTIFICATIONS = "Notifications";
 }
