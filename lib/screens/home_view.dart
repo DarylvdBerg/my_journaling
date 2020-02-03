@@ -24,7 +24,7 @@ class _HomeViewState extends State<HomeView> {
         signOut();
         break;
       case Strings.NOTIFICATIONS:
-        Navigator.pushReplacement(context, MaterialPageRoute(
+        Navigator.push(context, MaterialPageRoute(
             builder: (context) => NotificationView())
         );
         break;

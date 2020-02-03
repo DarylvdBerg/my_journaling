@@ -17,8 +17,14 @@ class Strings {
   // Notifications
   static const String NOTIFICATION_TITLE = "Journal time!";
   static const String NOTIFICATION_BODY = "It's time to start journaling! What did you do today?";
+  static const String CHANNEL_ID = "MyJournaling_";
+  static const String CHANNEL_NAME = "Time to Journal";
+  static const String CHANNEL_DESCRIPTION = "It's time to fill in your journal for today";
 
   // Menu
   static const String LOGOUT = "Logout";
   static const String NOTIFICATIONS = "Notifications";
+
+  // Sharedpreference
+  static const String SHAREDPREF = "NotificationTime";
 }

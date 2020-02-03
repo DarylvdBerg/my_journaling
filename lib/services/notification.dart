@@ -1,39 +1,41 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:my_journaling/util/strings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Notification {
-  FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin;
+class NotificationService {
+  FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  Notification(){
-    _initializeNotification();
+  setNotificationTime(TimeOfDay time) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString(Strings.SHAREDPREF, time.toString());
   }
 
-  void _initializeNotification() {
-    _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    final initSettingsAndroid = AndroidInitializationSettings('');
-    final initSettings = InitializationSettings(initSettingsAndroid, null);
-    _flutterLocalNotificationsPlugin.initialize(
-      initSettings,
-      onSelectNotification: onSelectNotification
-    );
+  Future<TimeOfDay> getNotificationTime() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return convertStringToTimeOfDay(pref.get(Strings.SHAREDPREF));
   }
 
-  Future onSelectNotification(String payload) async {
-    if(payload != null)
-      print('Notification');
-  }
-
-  Future<void> showDailyNotification(Time time, int id) async {
-    final androidPlatfromChannel = AndroidNotificationDetails(
-      'show daily channel id',
-      'show daily channel name',
-      'show daily description'
+  Future<void> showDailyNotification(TimeOfDay timeOfDay, int id) async {
+    print("Ik kom hier");
+    Time time = Time(timeOfDay.hour, timeOfDay.minute, 0);
+    final androidPlatformChannel = new AndroidNotificationDetails(
+      Strings.CHANNEL_ID,
+      Strings.CHANNEL_NAME,
+      Strings.CHANNEL_DESCRIPTION,
+      ongoing: true,
+      autoCancel: false,
+      importance: Importance.Max,
+      priority: Priority.Max
     );
 
-    final platformChannel = NotificationDetails(
-      androidPlatfromChannel,
-      null
+    final iosPlatform = new IOSNotificationDetails();
+
+    final platformChannel = new NotificationDetails(
+      androidPlatformChannel,
+      iosPlatform,
     );
+
 
     await _flutterLocalNotificationsPlugin.showDailyAtTime(
         id,
@@ -42,5 +44,14 @@ class Notification {
         time,
         platformChannel
     );
+  }
+
+  TimeOfDay convertStringToTimeOfDay(String timeOfDay) {
+    timeOfDay = timeOfDay.substring(timeOfDay.indexOf("(")+1, timeOfDay.indexOf(")"));
+
+    int minutes = int.parse(timeOfDay.split(":")[1]);
+    int hour = int.parse(timeOfDay.split(":")[0]);
+
+    return TimeOfDay(hour: hour, minute: minutes);
   }
 }
