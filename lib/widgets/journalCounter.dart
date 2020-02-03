@@ -9,7 +9,7 @@ class JournalCounter extends StatefulWidget {
 class _JournalCounterState extends State<JournalCounter> {
 
   final JournalService _journalService = JournalService();
-  int count;
+  int count = 0;
 
   _getUserTotalJournals() {
     setState(() {

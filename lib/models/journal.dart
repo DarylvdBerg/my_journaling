@@ -26,7 +26,8 @@ class Journal {
     return jsonList;
   }
 
-  factory Journal.fromJson(Map<String, dynamic> json) {
-    return Journal(json['journal'], json['questions'].cast<Question>(), json['date'], json['uid']);
+  factory Journal.fromJson(Map<String, dynamic> jsonMap) {
+    List<Question> questions = Question.createQuestionList(jsonMap['questions'] as List);
+    return Journal(jsonMap['journal'], questions, jsonMap['date'], jsonMap['uid']);
   }
 }

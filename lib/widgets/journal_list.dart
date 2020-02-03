@@ -1,23 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:my_journaling/models/journal.dart';
+import 'package:my_journaling/screens/journal_details.dart';
+import 'package:my_journaling/util/timestamp_converter.dart';
 
 class JournalList extends StatelessWidget {
   final List<Journal> journals;
 
   JournalList({this.journals});
-
-
-  String _getDayFromTimestamp(Timestamp timestamp) {
-    DateTime date = timestamp.toDate();
-    return DateFormat('EEEE').format(date);
-  }
-
-  String _getFullDateFromTimestamp(Timestamp timestamp) {
-    DateTime date = timestamp.toDate();
-    return DateFormat('dd-MM-yyyy HH:mm').format(date);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +19,10 @@ class JournalList extends StatelessWidget {
           child: Card(
             child: ListTile(
               leading: Icon(Icons.border_color),
-              title: Text(_getDayFromTimestamp(journals[index].date)),
-              subtitle: Text(_getFullDateFromTimestamp(journals[index].date)),
+              title: Text(TimestampConverter.getDayFromTimestamp(journals[index].date)),
+              subtitle: Text(TimestampConverter.getFullDateFromTimestamp(journals[index].date)),
               onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => JournalDetailsView(journal: journals[index],)));
               },
             )
           ),
