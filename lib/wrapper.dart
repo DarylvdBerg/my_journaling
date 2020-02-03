@@ -11,7 +11,11 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentUser = Provider.of<User>(context);
 
-    return currentUser == null ? LoginView() : HomeView();
+    if(currentUser == null) {
+      return LoginView();
+    }
+
+    return HomeView();
 
   }
 }
