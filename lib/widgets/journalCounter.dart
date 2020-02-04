@@ -9,17 +9,6 @@ class JournalCounter extends StatefulWidget {
 class _JournalCounterState extends State<JournalCounter> {
 
   final JournalService _journalService = JournalService();
-  int count = 0;
-
-  _getUserTotalJournals() {
-    setState(() {
-      _journalService
-          .getUserTotalJournals()
-          .then((journals) => {count = journals});
-    });
-    return count;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,11 +27,22 @@ class _JournalCounterState extends State<JournalCounter> {
             Padding(
               padding: EdgeInsets.all(10),
             ),
-            Text(
-              _getUserTotalJournals().toString(),
-              style: TextStyle(
-                fontSize: 30,
-              ),
+            FutureBuilder(
+              future: _journalService.getUserTotalJournals(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                switch(snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                    return Text("Getting total amount of journals...");
+                  default:
+                    return Text(
+                      snapshot.data.toString(),
+                      style: TextStyle(
+                        fontSize: 30
+                      ),
+                    );
+                }
+              }
             ),
           ],
         ),

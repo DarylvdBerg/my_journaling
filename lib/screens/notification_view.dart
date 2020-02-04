@@ -10,6 +10,7 @@ class NotificationView extends StatefulWidget {
 class _NotificationViewState extends State<NotificationView> {
 
   final NotificationService service = NotificationService();
+  final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
   TimeOfDay timeSelected;
 
 
@@ -22,6 +23,7 @@ class _NotificationViewState extends State<NotificationView> {
     if(picked != null && picked != timeSelected) {
       setState(() {
         timeSelected = picked;
+        service.setNotificationTime(timeSelected);
       });
     }
   }
@@ -31,20 +33,19 @@ class _NotificationViewState extends State<NotificationView> {
   }
 
   Future<void> saveNotificationTime() async {
-    service.setNotificationTime(timeSelected);
     service.showDailyNotification(timeSelected, 0);
-  }
-
-
-  @override
-  void initState() {
-    service.getNotificationTime().then((val) => timeSelected = val);
-    super.initState();
+    _scaffoldState.currentState.showSnackBar(
+      SnackBar(
+        content: Text("Time for notification has been set."),
+      )
+    );
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldState,
       appBar: AppBar(
         title: Text(Strings.APPNAME),
       ),
@@ -57,8 +58,27 @@ class _NotificationViewState extends State<NotificationView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text((timeSelected == null) ? "No time has been set" : "Notifications everyday at: "+timeOfDayToString(timeSelected),
-                  style: TextStyle(fontSize: 20),)
+                  FutureBuilder(
+                    future: service.getNotificationTime(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot){
+                      timeSelected = snapshot.data;
+                      switch(snapshot.connectionState){
+                        case ConnectionState.none:
+                        case ConnectionState.waiting:
+                          return Text("Getting journal time...");
+                        default:
+                          if(timeSelected == null)
+                            return Text("No time has been set");
+                          else
+                            return Text(
+                              "Notification will be send everyday at: "+timeOfDayToString(timeSelected),
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            );
+                      }
+                    }
+                  ),
                 ],
               ),
             ),
