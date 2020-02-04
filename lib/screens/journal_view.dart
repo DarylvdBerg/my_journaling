@@ -14,6 +14,7 @@ class JournalView extends StatefulWidget {
 
 class _JournalViewState extends State<JournalView> {
 
+  final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
   JournalService _journalService = JournalService();
 
   List<Question> questions = new List<Question>();
@@ -44,11 +45,18 @@ class _JournalViewState extends State<JournalView> {
     _journalService.createNewJournalItem(
         new Journal(journalContent, questions, Timestamp.now())
     );
+    _scaffoldState.currentState.showSnackBar(
+      SnackBar(
+        content: Text("Journal has been saved"),
+      )
+    );
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldState,
       appBar: AppBar(
         title: Text(Strings.APPNAME),
       ),
