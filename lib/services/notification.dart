@@ -17,16 +17,11 @@ class NotificationService {
   }
 
   Future<void> showDailyNotification(TimeOfDay timeOfDay, int id) async {
-    print("Ik kom hier");
     Time time = Time(timeOfDay.hour, timeOfDay.minute, 0);
     final androidPlatformChannel = new AndroidNotificationDetails(
       Strings.CHANNEL_ID,
       Strings.CHANNEL_NAME,
       Strings.CHANNEL_DESCRIPTION,
-      ongoing: true,
-      autoCancel: false,
-      importance: Importance.Max,
-      priority: Priority.Max
     );
 
     final iosPlatform = new IOSNotificationDetails();
@@ -45,6 +40,8 @@ class NotificationService {
         platformChannel
     );
   }
+
+
 
   TimeOfDay convertStringToTimeOfDay(String timeOfDay) {
     timeOfDay = timeOfDay.substring(timeOfDay.indexOf("(")+1, timeOfDay.indexOf(")"));

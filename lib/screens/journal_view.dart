@@ -44,6 +44,7 @@ class _JournalViewState extends State<JournalView> {
     _journalService.createNewJournalItem(
         new Journal(journalContent, questions, Timestamp.now())
     );
+    Navigator.pop(context);
   }
 
   @override
