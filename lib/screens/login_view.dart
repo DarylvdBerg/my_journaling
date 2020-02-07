@@ -2,7 +2,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journaling/screens/register_view.dart';
 import 'package:my_journaling/services/auth.dart';
-import 'package:my_journaling/widgets/app_name.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -21,17 +20,36 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       key: _scaffoldState,
       body: Container(
+        color: Color(0xff7e81db),
+        height: double.infinity,
+        width: double.infinity,
         padding: EdgeInsets.all(30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            AppName(),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Image(
+                image: AssetImage("assets/app_logo.png"),
+              ),
+            ),
             Form(
               key: _formKey,
               child: Column(
                 children: <Widget>[
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Email'),
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      labelStyle: TextStyle(color: Colors.white),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
+                    cursorColor: Colors.white,
+                    style: TextStyle(color: Colors.white),
                     keyboardType: TextInputType.emailAddress,
                     validator: (input) {
                       if (!EmailValidator.validate(input)) {
@@ -47,8 +65,22 @@ class _LoginViewState extends State<LoginView> {
                       setState(() => _email = input);
                     },
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Password'),
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      labelStyle: TextStyle(color: Colors.white),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
+                    cursorColor: Colors.white,
+                    style: TextStyle(color: Colors.white),
                     obscureText: true,
                     validator: (input) {
                       if (input.isEmpty) {
@@ -64,16 +96,31 @@ class _LoginViewState extends State<LoginView> {
                       setState(() => _password = input);
                     },
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   RaisedButton(
+                    color: Colors.white,
                     onPressed: () => _login(),
-                    child: Text('Login'),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Color(Colors.deepPurpleAccent.value),
+                      ),
+                    ),
                   ),
                   FlatButton(
-                    onPressed: () =>
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => RegisterView()),
-                        ),
-                    child: Text('Sign up'),
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterView()),
+                    ),
+                    child: Text(
+                      'I dont have an account yet',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                      ),
+                    ),
                     padding: EdgeInsets.only(top: 15),
                   ),
                 ],
