@@ -12,20 +12,23 @@ class JournalService {
   void createNewJournalItem(Journal journal) {
     print(AuthService.currentUser.uid);
     try {
-      DocumentReference ref = _getUserPath()
-          .collection(Strings.JOURNALS).document();
-      journal.uid = ref.documentID;
+      for(int i = 0; i < 20; i++) {
+        DocumentReference ref = _getUserPath()
+            .collection(Strings.JOURNALS).document();
+        journal.uid = ref.documentID;
 
-      ref.setData(journal.toJson());
+        ref.setData(journal.toJson());
+      }
     } catch(e) {
       print(e);
     }
   }
 
   /// Get all journal items from the logged in user
+  /// Order journals on date.
   Future<List<Journal>> getJournals() async{
     try {
-      QuerySnapshot snapshot =  await _getUserPath().collection(Strings.JOURNALS).getDocuments();
+      QuerySnapshot snapshot =  await _getUserPath().collection(Strings.JOURNALS).orderBy('date', descending: true).getDocuments();
       List<Journal> journals = new List();
 
       journals = snapshot.documents.map((j) => Journal.fromJson(j.data)).toList();
@@ -37,6 +40,7 @@ class JournalService {
     return null;
   }
 
+  /// Get total or user journals to show on main screen
   Future<int> getUserTotalJournals() async{
     QuerySnapshot snapshot = await _getUserPath().collection(Strings.JOURNALS).getDocuments();
     List<DocumentSnapshot> docs = snapshot.documents;

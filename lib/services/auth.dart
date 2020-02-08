@@ -43,6 +43,7 @@ class AuthService {
     }
   }
 
+  /// Get user stream from firebase
   Stream<User> get user {
     return _auth.onAuthStateChanged
         .map(_createUserFromFirebaseUser);
@@ -57,6 +58,7 @@ class AuthService {
     user.updateProfile(updateInfo);
   }
 
+  /// Create user document
   void _createUserDocument(String uid) {
     Firestore.instance.collection('users').document(uid).setData({});
   }

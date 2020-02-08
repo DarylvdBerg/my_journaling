@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_journaling/util/app_colors.dart';
 
 class JournalContent extends StatefulWidget {
-
-
   final TextEditingController content = TextEditingController();
   final Function saveJournal;
 
@@ -13,8 +12,6 @@ class JournalContent extends StatefulWidget {
 }
 
 class _JournalContentState extends State<JournalContent> {
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,13 +25,27 @@ class _JournalContentState extends State<JournalContent> {
             keyboardType: TextInputType.multiline,
             maxLines: 20,
             decoration: InputDecoration(
-                border: OutlineInputBorder(),
+              border: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: AppColor.ACCENTCOLOR,
+                ),
+              ),
             ),
+            cursorColor: AppColor.PRIMARYCOLOR,
           ),
-          SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
           RaisedButton(
             onPressed: () => widget.saveJournal(widget.content.text),
-            child: Text("Save Journal"),
+            color: Colors.white,
+            child: Text(
+              "Save Journal",
+              style: TextStyle(
+                color: AppColor.ACCENTCOLOR,
+              ),
+            ),
           )
         ],
       ),

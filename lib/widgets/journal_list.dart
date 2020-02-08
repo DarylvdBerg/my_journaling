@@ -11,24 +11,42 @@ class JournalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: journals.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          child: Card(
-            child: ListTile(
-              leading: Icon(Icons.library_books, color: AppColor.ACCENTCOLOR,),
-              title: Text(TimestampConverter.getDayFromTimestamp(journals[index].date)),
-              subtitle: Text(TimestampConverter.getFullDateFromTimestamp(journals[index].date)),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => JournalDetailsView(journal: journals[index],)));
-              },
-            )
-          ),
-        );
-      },
+    return Theme(
+      data: Theme.of(context).copyWith(
+        accentColor: AppColor.ACCENTCOLOR,
+      ),
+      child: ListView.builder(
+        addAutomaticKeepAlives: false,
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: journals.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            child: Card(
+              child: ListTile(
+                leading: Icon(
+                  Icons.library_books,
+                  color: AppColor.ACCENTCOLOR,
+                ),
+                title: Text(TimestampConverter.getDayFromTimestamp(
+                    journals[index].date)),
+                subtitle: Text(TimestampConverter.getFullDateFromTimestamp(
+                    journals[index].date)),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => JournalDetailsView(
+                        journal: journals[index],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

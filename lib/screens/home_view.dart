@@ -68,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
         child: Column(
           children: <Widget>[
             JournalCounter(),
-            JournalFutureBuilder()
+            Expanded(child: JournalFutureBuilder())
           ],
         ),
       ),

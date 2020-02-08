@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_journaling/util/app_colors.dart';
 import 'package:my_journaling/widgets/question_textfield.dart';
 
 class JournalQuestions extends StatelessWidget {
@@ -42,9 +43,10 @@ class JournalQuestions extends StatelessWidget {
             controller: anwser3,
           ),
           SizedBox(height: 20,),
-          FlatButton(
+          RaisedButton(
+            color: Colors.white,
             onPressed: () => nextQuestion(anwser1.text, anwser2.text, anwser3.text),
-            child: Text("Next"),
+            child: Text("Next", style: TextStyle(color: AppColor.ACCENTCOLOR),),
           ),
         ],
       ),

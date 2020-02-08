@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_journaling/util/app_colors.dart';
 
 class QuestionTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -19,9 +20,15 @@ class _QuestionTextFieldState extends State<QuestionTextField> {
         hintText: widget.textHint,
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(32.0)
+          borderRadius: BorderRadius.circular(32.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColor.ACCENTCOLOR
+          ),
         ),
       ),
+      cursorColor: AppColor.PRIMARYCOLOR,
     );
   }
 }
