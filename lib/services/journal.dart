@@ -12,13 +12,11 @@ class JournalService {
   void createNewJournalItem(Journal journal) {
     print(AuthService.currentUser.uid);
     try {
-      for(int i = 0; i < 20; i++) {
-        DocumentReference ref = _getUserPath()
-            .collection(Strings.JOURNALS).document();
-        journal.uid = ref.documentID;
+      DocumentReference ref = _getUserPath()
+          .collection(Strings.JOURNALS).document();
+      journal.uid = ref.documentID;
 
-        ref.setData(journal.toJson());
-      }
+      ref.setData(journal.toJson());
     } catch(e) {
       print(e);
     }
