@@ -105,7 +105,7 @@ class _LoginViewState extends State<LoginView> {
                     child: Text(
                       'Login',
                       style: TextStyle(
-                        color: Color(Colors.deepPurpleAccent.value),
+                        color: Colors.deepPurpleAccent,
                       ),
                     ),
                   ),
