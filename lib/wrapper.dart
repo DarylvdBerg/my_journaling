@@ -19,7 +19,7 @@ class _WrapperState extends State<Wrapper> {
   @override
   void initState() {
     super.initState();
-    final initSettingsAndroid = new AndroidInitializationSettings('mipmap/ic_launcher');
+    final initSettingsAndroid = new AndroidInitializationSettings('drawable/app_notification_icon');
     final initSettingsIos = IOSInitializationSettings();
     final initSettings = InitializationSettings(initSettingsAndroid, initSettingsIos);
     _flutterLocalNotificationsPlugin.initialize(

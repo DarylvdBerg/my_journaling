@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_journaling/services/auth.dart';
 import 'package:my_journaling/wrapper.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return StreamProvider<User>.value(
       value: AuthService().user,
       child: MaterialApp(

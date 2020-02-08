@@ -23,9 +23,10 @@ class JournalService {
   }
 
   /// Get all journal items from the logged in user
+  /// Order journals on date.
   Future<List<Journal>> getJournals() async{
     try {
-      QuerySnapshot snapshot =  await _getUserPath().collection(Strings.JOURNALS).getDocuments();
+      QuerySnapshot snapshot =  await _getUserPath().collection(Strings.JOURNALS).orderBy('date', descending: true).getDocuments();
       List<Journal> journals = new List();
 
       journals = snapshot.documents.map((j) => Journal.fromJson(j.data)).toList();
@@ -37,6 +38,7 @@ class JournalService {
     return null;
   }
 
+  /// Get total or user journals to show on main screen
   Future<int> getUserTotalJournals() async{
     QuerySnapshot snapshot = await _getUserPath().collection(Strings.JOURNALS).getDocuments();
     List<DocumentSnapshot> docs = snapshot.documents;
