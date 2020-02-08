@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journaling/screens/register_view.dart';
 import 'package:my_journaling/services/auth.dart';
+import 'package:my_journaling/util/app_colors.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       key: _scaffoldState,
       body: Container(
-        color: Color(0xff7e81db),
+        color: AppColor.ACCENTCOLOR,
         height: double.infinity,
         width: double.infinity,
         padding: EdgeInsets.all(30),

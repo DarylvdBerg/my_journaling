@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_journaling/models/menu_choice.dart';
 import 'package:my_journaling/screens/notification_view.dart';
 import 'package:my_journaling/services/auth.dart';
+import 'package:my_journaling/util/app_colors.dart';
 import 'package:my_journaling/util/menu.dart';
 import 'package:my_journaling/util/strings.dart';
 import 'package:my_journaling/widgets/journalCounter.dart';
@@ -43,6 +44,7 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: Text(Strings.APPNAME),
         elevation: 0.0,
+        backgroundColor: Colors.deepPurpleAccent,
         actions: <Widget>[
           PopupMenuButton<MenuChoice>(
             onSelected: _select,
@@ -71,6 +73,7 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColor.ACCENTCOLOR,
         onPressed: () {
           Navigator.push(
             context,

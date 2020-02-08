@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_journaling/models/journal.dart';
 import 'package:my_journaling/models/question.dart';
 import 'package:my_journaling/services/journal.dart';
+import 'package:my_journaling/util/app_colors.dart';
 import 'package:my_journaling/util/strings.dart';
 import 'package:my_journaling/widgets/journal_content.dart';
 import 'package:my_journaling/widgets/journal_questions.dart';
@@ -58,6 +59,7 @@ class _JournalViewState extends State<JournalView> {
     return Scaffold(
       key: _scaffoldState,
       appBar: AppBar(
+        backgroundColor: AppColor.PRIMARYCOLOR,
         title: Text(Strings.APPNAME),
       ),
         body: _index < questionStrings.length ?

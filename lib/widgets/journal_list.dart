@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_journaling/models/journal.dart';
 import 'package:my_journaling/screens/journal_details.dart';
+import 'package:my_journaling/util/app_colors.dart';
 import 'package:my_journaling/util/timestamp_converter.dart';
 
 class JournalList extends StatelessWidget {
@@ -18,7 +19,7 @@ class JournalList extends StatelessWidget {
         return Container(
           child: Card(
             child: ListTile(
-              leading: Icon(Icons.border_color),
+              leading: Icon(Icons.library_books, color: AppColor.ACCENTCOLOR,),
               title: Text(TimestampConverter.getDayFromTimestamp(journals[index].date)),
               subtitle: Text(TimestampConverter.getFullDateFromTimestamp(journals[index].date)),
               onTap: () {

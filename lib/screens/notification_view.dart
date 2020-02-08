@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_journaling/services/notification.dart';
+import 'package:my_journaling/util/app_colors.dart';
 import 'package:my_journaling/util/strings.dart';
 
 class NotificationView extends StatefulWidget {
@@ -47,6 +48,7 @@ class _NotificationViewState extends State<NotificationView> {
     return Scaffold(
       key: _scaffoldState,
       appBar: AppBar(
+        backgroundColor: AppColor.PRIMARYCOLOR,
         title: Text(Strings.APPNAME),
       ),
       body: Column(
@@ -85,13 +87,15 @@ class _NotificationViewState extends State<NotificationView> {
           ),
           RaisedButton(
             onPressed: () => _setTime(context),
-            child: Text("Pick time"),
+            color: Colors.white,
+            child: Text("Pick time", style: TextStyle(color: AppColor.ACCENTCOLOR),),
           ),
           RaisedButton(
             onPressed: () async {
                await saveNotificationTime();
             },
-            child: Text("Set Notification"),
+            color: Colors.white,
+            child: Text("Set Notification", style: TextStyle(color: AppColor.ACCENTCOLOR),),
           ),
         ],
       ),

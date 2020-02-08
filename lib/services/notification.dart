@@ -18,6 +18,18 @@ class NotificationService {
 
   Future<void> showDailyNotification(TimeOfDay timeOfDay, int id) async {
     Time time = Time(timeOfDay.hour, timeOfDay.minute, 0);
+    var platformChannel = _initPlatform();
+
+    await _flutterLocalNotificationsPlugin.showDailyAtTime(
+        id,
+        Strings.NOTIFICATION_TITLE,
+        Strings.NOTIFICATION_BODY,
+        time,
+        platformChannel
+    );
+  }
+
+  NotificationDetails _initPlatform() {
     final androidPlatformChannel = new AndroidNotificationDetails(
       Strings.CHANNEL_ID,
       Strings.CHANNEL_NAME,
@@ -31,14 +43,7 @@ class NotificationService {
       iosPlatform,
     );
 
-
-    await _flutterLocalNotificationsPlugin.showDailyAtTime(
-        id,
-        Strings.NOTIFICATION_TITLE,
-        Strings.NOTIFICATION_BODY,
-        time,
-        platformChannel
-    );
+    return platformChannel;
   }
 
 

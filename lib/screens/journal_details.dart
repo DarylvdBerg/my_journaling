@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_journaling/models/journal.dart';
+import 'package:my_journaling/util/app_colors.dart';
 import 'package:my_journaling/util/strings.dart';
 import 'package:my_journaling/widgets/journal_details_content.dart';
 import 'package:my_journaling/widgets/journal_details_questions.dart';
@@ -16,6 +17,7 @@ class JournalDetailsView extends StatelessWidget {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
+            backgroundColor: AppColor.PRIMARYCOLOR,
             title: Text(Strings.APPNAME),
             actions: <Widget>[
               FlatButton.icon(
@@ -42,6 +44,8 @@ class JournalDetailsView extends StatelessWidget {
                   ),
                 )
               ],
+              labelColor: Colors.white,
+              indicatorColor: AppColor.PRIMARYCOLOR,
             ),
           ),
           body: TabBarView(
