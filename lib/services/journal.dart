@@ -10,13 +10,21 @@ class JournalService {
   
   /// Create new journal item for logged in user
   void createNewJournalItem(Journal journal) {
-    print(AuthService.currentUser.uid);
     try {
       DocumentReference ref = _getUserPath()
           .collection(Strings.JOURNALS).document();
       journal.uid = ref.documentID;
 
       ref.setData(journal.toJson());
+    } catch(e) {
+      print(e);
+    }
+  }
+
+  void deleteJournalItem(String uid) {
+    try {
+      _getUserPath()
+          .collection(Strings.JOURNALS).document(uid).delete();
     } catch(e) {
       print(e);
     }
