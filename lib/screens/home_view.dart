@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_journaling/models/menu_choice.dart';
 import 'package:my_journaling/screens/notification_view.dart';
 import 'package:my_journaling/services/auth.dart';
+import 'package:my_journaling/services/journal.dart';
 import 'package:my_journaling/util/app_colors.dart';
 import 'package:my_journaling/util/menu.dart';
 import 'package:my_journaling/util/strings.dart';
@@ -18,6 +19,9 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final AuthService _auth = AuthService();
+  final JournalService _journalService = JournalService();
+
+  int totalNumberOfJournals = 0;
 
   void _select(MenuChoice choice) {
     switch(choice.title) {
@@ -36,6 +40,15 @@ class _HomeViewState extends State<HomeView> {
     await _auth.signOut();
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => Wrapper()));
+  }
+
+  void getUserTotalJournals() {
+    _journalService.getUserTotalJournals()
+    .then((totalJournals) {
+      setState(() {
+        totalNumberOfJournals = totalJournals;
+      });
+    });
   }
 
   @override
@@ -67,8 +80,8 @@ class _HomeViewState extends State<HomeView> {
       body: Container(
         child: Column(
           children: <Widget>[
-            JournalCounter(),
-            Expanded(child: JournalFutureBuilder())
+            JournalCounter(totalNumberOfJournals),
+            Expanded(child: JournalFutureBuilder(journalCounter: getUserTotalJournals,))
           ],
         ),
       ),
@@ -77,7 +90,7 @@ class _HomeViewState extends State<HomeView> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => JournalView()),
+            MaterialPageRoute(builder: (context) => JournalView(getUserTotalJournals)),
           );
         },
         child: Icon(Icons.add),
