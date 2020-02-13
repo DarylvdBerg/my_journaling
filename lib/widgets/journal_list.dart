@@ -5,18 +5,31 @@ import 'package:my_journaling/services/journal.dart';
 import 'package:my_journaling/util/app_colors.dart';
 import 'package:my_journaling/util/timestamp_converter.dart';
 
-class JournalList extends StatelessWidget {
+class JournalList extends StatefulWidget {
   final List<Journal> journals;
-  final JournalService journalService = JournalService();
+  final Function journalCounter;
 
-  JournalList({this.journals});
+  JournalList({this.journals, this.journalCounter});
+
+  @override
+  _JournalListState createState() => _JournalListState();
+}
+
+class _JournalListState extends State<JournalList> {
+  final JournalService _journalService = JournalService();
+  List<Journal> journals;
 
   void _deleteJournal(String uid) {
-    journalService.deleteJournalItem(uid);
+    _journalService.deleteJournalItem(uid);
+    widget.journalCounter();
+    setState(() {
+      journals = widget.journals;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    journals = widget.journals;
     return Theme(
       data: Theme.of(context).copyWith(
         accentColor: AppColor.ACCENTCOLOR,
@@ -25,11 +38,11 @@ class JournalList extends StatelessWidget {
         addAutomaticKeepAlives: false,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: journals.length,
+        itemCount: widget.journals.length,
         itemBuilder: (BuildContext context, int index) {
           return Dismissible(
             direction: DismissDirection.endToStart,
-            key: Key(journals[index].toString()),
+            key: Key(widget.journals[index].toString()),
             confirmDismiss: (direction) async {
               return await showDialog(
                 context: context,
@@ -44,7 +57,11 @@ class JournalList extends StatelessWidget {
                           "Yes",
                           style: TextStyle(color: AppColor.ACCENTCOLOR),
                         ),
-                        onPressed: () => _deleteJournal(journals[index].uid),
+                        onPressed: () {
+                          _deleteJournal(journals[index].uid);
+                          journals.removeAt(index);
+                          Navigator.pop(context);
+                        },
                       ),
                       FlatButton(
                         child: Text(

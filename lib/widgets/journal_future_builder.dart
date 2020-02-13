@@ -3,8 +3,17 @@ import 'package:my_journaling/models/journal.dart';
 import 'package:my_journaling/services/journal.dart';
 import 'package:my_journaling/widgets/journal_list.dart';
 
-class JournalFutureBuilder extends StatelessWidget {
+class JournalFutureBuilder extends StatefulWidget {
 
+  final Function journalCounter;
+
+  JournalFutureBuilder({this.journalCounter});
+
+  @override
+  _JournalFutureBuilderState createState() => _JournalFutureBuilderState();
+}
+
+class _JournalFutureBuilderState extends State<JournalFutureBuilder> {
   final JournalService _journalService = new JournalService();
 
   @override
@@ -26,7 +35,7 @@ class JournalFutureBuilder extends StatelessWidget {
                   ),
                 );
               else
-                return JournalList(journals: journals);
+                return JournalList(journals: journals, journalCounter: widget.journalCounter);
           }
         }
     );

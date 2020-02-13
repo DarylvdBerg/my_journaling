@@ -45,7 +45,12 @@ class JournalQuestions extends StatelessWidget {
           SizedBox(height: 20,),
           RaisedButton(
             color: Colors.white,
-            onPressed: () => nextQuestion(anwser1.text, anwser2.text, anwser3.text),
+            onPressed: () {
+              if(anwser1.text.isEmpty || anwser2.text.isEmpty || anwser3.text.isEmpty)
+                return;
+
+              nextQuestion(anwser1.text, anwser2.text, anwser3.text);
+            } ,
             child: Text("Next", style: TextStyle(color: AppColor.ACCENTCOLOR),),
           ),
         ],

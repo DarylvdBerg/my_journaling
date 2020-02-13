@@ -9,6 +9,10 @@ import 'package:my_journaling/widgets/journal_content.dart';
 import 'package:my_journaling/widgets/journal_questions.dart';
 
 class JournalView extends StatefulWidget {
+  final Function reloadJournalCounter;
+
+  JournalView(this.reloadJournalCounter);
+
   @override
   _JournalViewState createState() => _JournalViewState();
 }
@@ -51,6 +55,7 @@ class _JournalViewState extends State<JournalView> {
         content: Text("Journal has been saved"),
       )
     );
+    widget.reloadJournalCounter();
     Navigator.pop(context);
   }
 
