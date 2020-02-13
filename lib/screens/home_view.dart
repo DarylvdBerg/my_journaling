@@ -42,13 +42,21 @@ class _HomeViewState extends State<HomeView> {
         context, MaterialPageRoute(builder: (context) => Wrapper()));
   }
 
-  void getUserTotalJournals() {
-    _journalService.getUserTotalJournals()
+  void getUserTotalJournals() async{
+    await _journalService.getUserTotalJournals()
     .then((totalJournals) {
       setState(() {
         totalNumberOfJournals = totalJournals;
       });
     });
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      getUserTotalJournals();
+    });
+    super.initState();
   }
 
   @override

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_journaling/services/journal.dart';
 
 class JournalCounter extends StatefulWidget {
   final int totalAmountOfJournals;
