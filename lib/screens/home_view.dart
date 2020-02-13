@@ -6,7 +6,7 @@ import 'package:my_journaling/services/journal.dart';
 import 'package:my_journaling/util/app_colors.dart';
 import 'package:my_journaling/util/menu.dart';
 import 'package:my_journaling/util/strings.dart';
-import 'package:my_journaling/widgets/journalCounter.dart';
+import 'package:my_journaling/widgets/journal_counter.dart';
 import 'package:my_journaling/widgets/journal_future_builder.dart';
 
 import '../wrapper.dart';
